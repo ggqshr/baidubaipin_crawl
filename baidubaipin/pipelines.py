@@ -16,7 +16,7 @@ class BaidubaipinPipeline(object):
     def __init__(self):
         self.client = r.Redis(REDIS_HOST, port=REDIS_PORT)
         self.conn = MongoClient(MONGODB_HOST, MONGODB_PORT)
-        self.conn.admin.authenticate("ggqshr", "root")
+        #self.conn.admin.authenticate("ggqshr", "root")
         self.mongo = self.conn.Baidu.Baidu
         # 写入csv要用的
         # self.column = ["id", "link", 'post_time', 'job_name', 'salary', 'place', 'job_nature', 'experience',

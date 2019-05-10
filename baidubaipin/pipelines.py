@@ -49,3 +49,5 @@ class BaidubaipinPipeline(object):
         # self.f.close()
         self.client.shutdown()
         self.conn.close()
+        with open("result.log", "a") as f:
+            f.writelines("this time crawl item {} \n".format(self.count))

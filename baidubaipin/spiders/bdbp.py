@@ -61,7 +61,6 @@ class BdbpSpider(scrapy.Spider):
         "Accept-Language": "zh-CN,zh;q=0.9",
     }
     cookies_str = cookies_str
-    id_set = set()
     regSpace = re.compile(r'([\s\r\n\t])+')
     offset = datetime.timedelta(-1)
     today_date = datetime.datetime.now()
@@ -75,14 +74,14 @@ class BdbpSpider(scrapy.Spider):
                      "大庆", "淄博", "乌鲁木齐", "佛山", "呼和浩特", "齐齐哈尔", "泉州", "西宁", "兰州", "贵阳", "温州"]
         url_list = []
         for city in city_list:
-            for page_num in range(0, 501):
+            for page_num in range(0, 1001):
                 url_list.append(base_url.format(
                     pagenum=page_num,
-                    cityname=city,
-                    time=(self.today_date + self.offset).strftime("%Y%m%d") + "_" + self.today_date.strftime("%Y%m%d")
+                    cityname=double_quote(city),
+                    time=(self.today_date + self.offset).strftime("%Y%m%d") + "_" + self.today_date.strftime("%Y%m%d"),
                 ))
         for url in url_list:
-            yield Request(url, headers=self.COMMON_HEADER, cookies=self.cookies_dict, callback=self.parse)
+            yield Request(url, headers=self.COMMON_HEADER, cookies=self.cookies_dict, callback=self.parse,dont_filter=True)
 
     def parse(self, response):
         # from scrapy.shell import inspect_response
@@ -93,35 +92,31 @@ class BdbpSpider(scrapy.Spider):
         for info, query_url in zip(all_info, detail_page_url_list):
             item = BaidubaipinItem()
             id = info['rloc']
-            if id in self.id_set:  # 已经爬取过
-                continue
-            else:
-                self.id_set.add(id)
-                item['id'] = id
-                item['link'] = info['url'] if 'url' in info else 'NULL'
-                item['post_time'] = info['lastmod']
-                item['job_name'] = info['title']
-                item['salary'] = info['salary']
-                item['place'] = info['city']
-                item['job_nature'] = info['type']
-                item['experience'] = info['experience']
-                item['education'] = info['education']
-                item['job_number'] = info['number']
-                item['job_kind'] = info['jobsecondclass'] if 'jobsecondclass' in info else 'NULL'
-                item['advantage'] = info['ori_welfare']
-                item['company_address'] = info['companyaddress'] if 'companyaddress' in info else 'NULL'
-                item['hot_score'] = info['hot_score'] if 'hot_score' in info else 'NULL'
-                item['job_safety_score'] = info['job_safety_score'] if 'job_safety_score' in info else 'NULL'
-                item['company_reputation_score'] = info[
-                    'company_reputation_score'] if 'company_reputation_score' in info else 'NULL'
-                item['salary_level_score'] = info['salary_level_score'] if 'salary_level_score' in info else 'NULL'
-                item['company_name'] = info['officialname']
-                item['company_size'] = info['size'] if 'size' in info else 'NULL'
-                item['company_nature'] = info['employertype']
-                item['company_industry'] = info['first_level_label'] if 'first_level_label' in info else 'NULL'
-                # item['company_homepage'] = 'NULL'
-                item['job_place'] = item['place']
-                yield item
+            item['id'] = id
+            item['link'] = info['url'] if 'url' in info else 'NULL'
+            item['post_time'] = info['lastmod']
+            item['job_name'] = info['title']
+            item['salary'] = info['salary']
+            item['place'] = info['city']
+            item['job_nature'] = info['type']
+            item['experience'] = info['experience']
+            item['education'] = info['education']
+            item['job_number'] = info['number']
+            item['job_kind'] = info['jobsecondclass'] if 'jobsecondclass' in info else 'NULL'
+            item['advantage'] = info['ori_welfare']
+            item['company_address'] = info['companyaddress'] if 'companyaddress' in info else 'NULL'
+            item['hot_score'] = info['hot_score'] if 'hot_score' in info else 'NULL'
+            item['job_safety_score'] = info['job_safety_score'] if 'job_safety_score' in info else 'NULL'
+            item['company_reputation_score'] = info[
+                'company_reputation_score'] if 'company_reputation_score' in info else 'NULL'
+            item['salary_level_score'] = info['salary_level_score'] if 'salary_level_score' in info else 'NULL'
+            item['company_name'] = info['officialname']
+            item['company_size'] = info['size'] if 'size' in info else 'NULL'
+            item['company_nature'] = info['employertype']
+            item['company_industry'] = info['first_level_label'] if 'first_level_label' in info else 'NULL'
+            # item['company_homepage'] = 'NULL'
+            item['job_place'] = item['place']
+            yield item
                 # 因不能使用Splash 所以只能舍弃掉几个字段
                 # get_content_partial = partial(self.get_content_place_splash, item)
                 #

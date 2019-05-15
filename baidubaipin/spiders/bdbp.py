@@ -74,7 +74,7 @@ class BdbpSpider(scrapy.Spider):
                      "大庆", "淄博", "乌鲁木齐", "佛山", "呼和浩特", "齐齐哈尔", "泉州", "西宁", "兰州", "贵阳", "温州"]
         url_list = []
         for city in city_list:
-            for page_num in range(0, 501):
+            for page_num in range(0, 1001):
                 url_list.append(base_url.format(
                     pagenum=page_num,
                     cityname=double_quote(city),

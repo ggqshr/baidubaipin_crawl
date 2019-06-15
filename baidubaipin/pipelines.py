@@ -12,7 +12,6 @@ from .settings import REDIS_HOST, REDIS_PORT, MONGODB_HOST, MONGODB_PORT
 from pymongo import MongoClient
 from datetime import datetime
 
-
 class BaidubaipinPipeline(object):
     def __init__(self):
         self.client = r.Redis(REDIS_HOST, port=REDIS_PORT)

@@ -97,7 +97,7 @@ class BdbpSpider(scrapy.Spider):
             item['post_time'] = info['lastmod']
             item['job_name'] = info['title']
             item['salary'] = info['salary']
-            item['place'] = info['city']
+            item['place'] = info['city'] if 'city' in info.keys() else "空"
             item['job_nature'] = info['type']
             item['experience'] = info['experience']
             item['education'] = info['education']

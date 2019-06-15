@@ -10,6 +10,7 @@ import json
 import redis as r
 from .settings import REDIS_HOST, REDIS_PORT, MONGODB_HOST, MONGODB_PORT
 from pymongo import MongoClient
+from datetime import datetime
 
 
 class BaidubaipinPipeline(object):
@@ -34,5 +35,5 @@ class BaidubaipinPipeline(object):
         # self.client.shutdown()
         self.conn.close()
         with open("result.log", "a") as f:
-            f.writelines("this time crawl item {} \n".format(self.count))
+            f.writelines("{} crawl item {} \n".format(datetime.now().strftime("%Y.%m.%d"),self.count))	
             f.flush()

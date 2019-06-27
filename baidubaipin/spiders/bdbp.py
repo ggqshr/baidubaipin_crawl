@@ -94,7 +94,7 @@ class BdbpSpider(scrapy.Spider):
             id = info['rloc']
             item['id'] = id
             item['link'] = info['url'] if 'url' in info else 'NULL'
-            item['post_time'] = info['lastmod']
+            item['post_time'] = info['lastmod'] if "T" not in info['lastmod'] else info['lastmod'].split("t")[0]
             item['job_name'] = info['title']
             item['salary'] = info['salary']
             item['place'] = info['city'] if 'city' in info.keys() else "空"

@@ -8,7 +8,7 @@ import time
 from scrapy.log import logger
 import json
 import redis as r
-from .settings import REDIS_HOST, REDIS_PORT, MONGODB_HOST, MONGODB_PORT
+from .settings import REDIS_HOST, REDIS_PORT, MONGODB_HOST, MONGODB_PORT,MONGODB_USER,MONGODB_PASSWORD
 from pymongo import MongoClient
 from datetime import datetime
 
@@ -16,7 +16,7 @@ class BaidubaipinPipeline(object):
     def __init__(self):
         self.client = r.Redis(REDIS_HOST, port=REDIS_PORT)
         self.conn = MongoClient(MONGODB_HOST, MONGODB_PORT)
-        #self.conn.admin.authenticate("ggqshr", "root")
+        self.conn.admin.authenticate(MONGODB_USER, MONGODB_PASSWORD)
         self.mongo = self.conn.Baidu.Baidu
         self.count = 0
 

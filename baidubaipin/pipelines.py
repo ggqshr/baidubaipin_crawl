@@ -5,12 +5,13 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 import time
-from scrapy.log import logger
 import json
 import redis as r
 from .settings import REDIS_HOST, REDIS_PORT, MONGODB_HOST, MONGODB_PORT,MONGODB_USER,MONGODB_PASSWORD
 from pymongo import MongoClient
 from datetime import datetime
+from logging import getLogger
+logger = getLogger()
 
 class BaidubaipinPipeline(object):
     def __init__(self):

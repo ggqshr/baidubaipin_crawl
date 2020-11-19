@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-from scrapy.log import INFO
+from logging import INFO
+import logging
+import os
+from scrapy.utils.log import configure_logging
+from logging.handlers import RotatingFileHandler, TimedRotatingFileHandler
 
 # Scrapy settings for baidubaipin project
 #
@@ -100,11 +104,23 @@ HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
 
 # 要使用的cookies，因为百度百聘需要登陆后才能爬取
 cookies_str = r'BAIDUID=03978A7EB227355B8301BFB6EFAB02AF:FG=1; BIDUPSID=03978A7EB227355B8301BFB6EFAB02AF; PSTM=1557281270; delPer=0; BDRCVFR[mkUqnUt8juD]=mk3SLVN4HKm; H_PS_PSSID=1430_21104_28519_28767_28724_28964_28836_28585_28701; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; PSINO=7; Hm_lvt_da3258e243c3132f66f0f3c247b48473=1557838448; Hm_lpvt_da3258e243c3132f66f0f3c247b48473=1557838448; BDUSS=m03U09KRzFQMnlRcTR0fkdTakVzblVMdEYtTm5-QTJkbEFCV2FEM3N0YVhSd0pkSVFBQUFBJCQAAAAAAAAAAAEAAAA32L9Ruf65~mdncwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJe62lyXutpcT'
-REDIS_HOST = "127.0.0.1"
-REDIS_PORT = 6379
+REDIS_HOST = "47.94.45.55"
+REDIS_PORT = 9879
 
-MONGODB_HOST = "127.0.0.1"
-MONGODB_PORT = 27017
+MONGODB_HOST = "47.94.45.55"
+MONGODB_PORT = 9878
 
 MONGODB_USER = "jason#619"
 MONGODB_PASSWORD = "jason#619"
+
+if not os.path.exists("./logs"):
+    os.mkdir('./logs')
+
+configure_logging(install_root_handler=False)
+logging.basicConfig(
+    level=logging.DEBUG,
+    handlers=[
+        TimedRotatingFileHandler(filename='logs/bd.log', encoding='utf-8', when="D", interval=1)],
+    format='%(asctime)s %(filename)s [line:%(lineno)d] %(levelname)s %(message)s',
+    datefmt='%a, %d %b %Y %H:%M:%S',
+)

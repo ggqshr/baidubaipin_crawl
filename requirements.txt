@@ -1,0 +1,4 @@
+redis
+scrapy_splash
+pymongo
+scrapy

@@ -104,6 +104,8 @@ class BdbpSpider(scrapy.Spider):
             item['job_number'] = info['number']
             item['job_kind'] = info['jobsecondclass'] if 'jobsecondclass' in info else 'NULL'
             item['advantage'] = info['ori_welfare'] if "ori_welfare" in info.keys() else "空"
+            if item['advantage'] =='空':
+                item['advantage'] = info['welfare'] if 'welfare' in info.keys() else "空"
             item['company_address'] = info['companyaddress'] if 'companyaddress' in info else 'NULL'
             item['hot_score'] = info['hot_score'] if 'hot_score' in info else 'NULL'
             item['job_safety_score'] = info['job_safety_score'] if 'job_safety_score' in info else 'NULL'

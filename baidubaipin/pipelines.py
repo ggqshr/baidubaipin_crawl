@@ -12,10 +12,13 @@ from pymongo import MongoClient
 from datetime import datetime
 from logging import getLogger
 logger = getLogger()
+from redisbloom.client import Client
 
 class BaidubaipinPipeline(object):
     def __init__(self):
-        self.client = r.Redis(REDIS_HOST, port=REDIS_PORT)
+        self.client = Client(host=REDIS_HOST,port=REDIS_PORT,password="b7310")
+        if not self.client.exists("bf:bd"):
+            self.client.bfCreate("bf:bd",0.00001,100000)
         self.conn = MongoClient(MONGODB_HOST, MONGODB_PORT)
         self.conn.admin.authenticate(MONGODB_USER, MONGODB_PASSWORD)
         self.mongo = self.conn.Baidu.Baidu
@@ -23,7 +26,7 @@ class BaidubaipinPipeline(object):
 
     def process_item(self, item, spider):
         self.count += 1
-        if self.client.sadd("id_set", item['id']) == 0:
+        if self.client.bfAdd("bf:bd", item['id']) == 0:
             return item
         self.mongo.insert_one(dict(item))
         return item

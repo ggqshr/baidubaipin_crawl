@@ -1,3 +1,11 @@
-from scrapy import cmdline
+# Automatically created by: scrapyd-deploy
 
-cmdline.execute(['scrapy', 'crawl', 'bdbp'])
+from setuptools import setup, find_packages
+
+setup(
+    name         = 'project',
+    version      = '1.0',
+    packages     = find_packages(),
+    entry_points = {'scrapy': ['settings = baidubaipin.settings']},
+)
+['import test']

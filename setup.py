@@ -1,52 +1,40 @@
 # -*- coding: utf-8 -*-
 
-# Define here the models for your scraped items
+# Define your item pipelines here
 #
-# See documentation in:
-# https://doc.scrapy.org/en/latest/topics/items.html
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
+import time
+import json
+import redis as r
+from .settings import REDIS_HOST, REDIS_PORT, MONGODB_HOST, MONGODB_PORT,MONGODB_USER,MONGODB_PASSWORD
+from pymongo import MongoClient
+from datetime import datetime
+from logging import getLogger
+logger = getLogger()
 
-import scrapy
+class BaidubaipinPipeline(object):
+    def __init__(self):
+        self.client = r.Redis(REDIS_HOST, port=REDIS_PORT)
+        self.conn = MongoClient(MONGODB_HOST, MONGODB_PORT)
+        self.conn.admin.authenticate(MONGODB_USER, MONGODB_PASSWORD)
+        self.mongo = self.conn.Baidu.Baidu
+        self.count = 0
 
+    def process_item(self, item, spider):
+        self.count += 1
+        if self.client.sadd("id_set", item['id']) == 0:
+            return item
+        self.mongo.insert_one(dict(item))
+        return item
 
-class BaidubaipinItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    link = scrapy.Field()  # url
-    id = scrapy.Field()  # rloc
-    post_time = scrapy.Field()  # lastmod
-    job_name = scrapy.Field()  # title
-    salary = scrapy.Field()  # salary
-    place = scrapy.Field()  # city
-    job_nature = scrapy.Field()  # type
-    experience = scrapy.Field()  # experience
-    education = scrapy.Field()  # education
-    job_number = scrapy.Field()  # number
-    job_kind = scrapy.Field()  # jobsecondclass
-    advantage = scrapy.Field()  # ori_welfare
-    company_address = scrapy.Field()  # companyaddress
-    company_name = scrapy.Field()  # officialname
-    company_size = scrapy.Field()  # size
-    company_nature = scrapy.Field()  # employertype
-    """
-        https://zhaopin.baidu.com/szzw?
-        id=http://kg.baidu.com/od/4002/2011615/688ded03ea455ae9d2f3282b868f9a3
-        &
-        query=运营专员（成都）(谷川联行有限公司)
-        &city=成都
-        &is_promise=1
-        &is_direct=
-        &vip_sign=
-        &asp_ad_job=
-    """
-    # job_content = scrapy.Field()  # //div[@class='job-detail']/p/text()
-    job_place = scrapy.Field()  # //div[@class='job-addr']/p[2]/text()
-    """
-    https://zhaopin.baidu.com/api/firmasync?query=谷川联行有限公司&city=四川&qid=51288ea64543cc59&pcmod=1&token=ZaKrqG50jCKmIaFlVaGmnVZmbimkFaYaYiJZau5mu1Wa
-    """
-    company_industry = scrapy.Field()  # industry
-    # company_homepage = scrapy.Field()  # official
-    hot_score = scrapy.Field() # 百度对于本条招聘信息的热度评分  hot_score
-    job_safety_score = scrapy.Field() # 百度对于招聘信息的安全评分  job_safety_score
-    company_reputation_score = scrapy.Field() # 百度对于招聘公司的声誉评分 company_reputation_score
-    salary_level_score = scrapy.Field() # 对于薪水评分  salary_level_score
-
+    def close_spider(self, item):
+        logger.info("close spider and close file")
+        # self.f.flush()
+        # self.f.close()
+        # self.client.shutdown()
+        self.conn.close()
+        with open("result.log", "a") as f:
+            f.writelines("{} crawl item {} \n".format(datetime.now().strftime("%Y.%m.%d"),self.count))	
+            f.flush()
+['import scrapy']

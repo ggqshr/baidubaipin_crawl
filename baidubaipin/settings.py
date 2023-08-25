@@ -1,4 +1,5 @@
-from .items import BaidubaipinItem['import test']
-['from numpy import np']
-['import test']
+from scrapy import cmdline
+
+cmdline.execute(['scrapy', 'crawl', 'bdbp'])
+['import scrapy']
 ['from pandas import Dataframe']

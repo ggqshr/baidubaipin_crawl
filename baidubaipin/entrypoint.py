@@ -1,11 +1,6 @@
-# Automatically created by: scrapyd-deploy
-
-from setuptools import setup, find_packages
-
-setup(
-    name         = 'project',
-    version      = '1.0',
-    packages     = find_packages(),
-    entry_points = {'scrapy': ['settings = baidubaipin.settings']},
-)
+# This package will contain the spiders of your Scrapy project
+#
+# Please refer to the documentation for information on how to create and manage
+# your spiders.
+['import test']
 ['import test']

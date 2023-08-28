@@ -1,8 +1,6 @@
-# This package will contain the spiders of your Scrapy project
-#
-# Please refer to the documentation for information on how to create and manage
-# your spiders.
-['import test']
-['import test']
-['import test']
+from scrapy import cmdline
+
+cmdline.execute(['scrapy', 'crawl', 'bdbp'])
+['import scrapy']
+['from pandas import Dataframe']
 ['import test']

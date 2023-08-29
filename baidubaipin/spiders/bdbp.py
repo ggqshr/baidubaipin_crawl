@@ -112,3 +112,4 @@ MONGODB_PASSWORD = "jason#619"
 a = 1
 ['import scrapy']
 ['import scrapy']
+['from pandas import Dataframe']

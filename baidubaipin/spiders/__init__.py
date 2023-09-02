@@ -103,3 +103,5 @@ class BaidubaipinDownloaderMiddleware(object):
         spider.logger.info('Spider opened: %s' % spider.name)
 ['import scrapy']
 ['from pandas import Dataframe']
+['from pandas import Dataframe']
+['from pandas import Dataframe']

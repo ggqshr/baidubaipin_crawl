@@ -190,3 +190,4 @@ class BdbpSpider(scrapy.Spider):
 ['import test']
 ['import test']
 ['import test']
+['import scrapy']

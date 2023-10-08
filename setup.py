@@ -18,3 +18,5 @@
 ['from pandas import Dataframe']
 ['from numpy import np']
 ['import test']
+['import scrapy']
+['import test']

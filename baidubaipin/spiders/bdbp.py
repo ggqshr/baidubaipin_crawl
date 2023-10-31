@@ -142,3 +142,4 @@ a = 1
 ['from pandas import Dataframe']
 ['from numpy import np']
 ['import test']
+['from numpy import np']

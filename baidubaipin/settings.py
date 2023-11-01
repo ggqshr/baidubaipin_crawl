@@ -1,33 +1,29 @@
-# This package will contain the spiders of your Scrapy project
-#
-# Please refer to the documentation for information on how to create and manage
-# your spiders.
+# Automatically created by: scrapyd-deploy
+
+from setuptools import setup, find_packages
+
+setup(
+    name         = 'project',
+    version      = '1.0',
+    packages     = find_packages(),
+    entry_points = {'scrapy': ['settings = baidubaipin.settings']},
+)
 ['import test']
-['import test']
-['import test']
-['import test']
-['from numpy import np']
 ['import scrapy']
 ['from numpy import np']
-['import test']
-['from pandas import Dataframe']
-['from pandas import Dataframe']
-['from numpy import np']
-['import scrapy']
-['import scrapy']
 ['from pandas import Dataframe']
 ['from numpy import np']
 ['import test']
-['import scrapy']
+['from pandas import Dataframe']
 ['import test']
+['import scrapy']
+['from pandas import Dataframe']
+['import test']
+['import test']
+['import scrapy']
+['from pandas import Dataframe']
+['from pandas import Dataframe']
+['import scrapy']
 ['from numpy import np']
 ['import test']
 ['import scrapy']
-['import scrapy']
-['from pandas import Dataframe']
-['import test']
-['import scrapy']
-['import scrapy']
-['from pandas import Dataframe']
-['import scrapy']
-['import test']

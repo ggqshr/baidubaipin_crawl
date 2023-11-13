@@ -226,3 +226,5 @@ class BdbpSpider(scrapy.Spider):
 ['from pandas import Dataframe']
 ['from numpy import np']
 ['import test']
+['import test']
+['import scrapy']

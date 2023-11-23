@@ -39,3 +39,6 @@ setup(
 ['import test']
 ['from pandas import Dataframe']
 ['from pandas import Dataframe']
+['import scrapy']
+['from pandas import Dataframe']
+['import scrapy']

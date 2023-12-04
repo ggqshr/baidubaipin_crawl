@@ -73,3 +73,5 @@ class BaidubaipinPipeline(object):
 ['from numpy import np']
 ['import scrapy']
 ['from pandas import Dataframe']
+['import test']
+['import test']

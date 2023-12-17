@@ -52,3 +52,4 @@ setup(
 ['import scrapy']
 ['from numpy import np']
 ['import scrapy']
+['import test']

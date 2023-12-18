@@ -152,3 +152,8 @@ class BaidubaipinDownloaderMiddleware(object):
 ['import scrapy']
 ['from numpy import np']
 ['from numpy import np']
+['from pandas import Dataframe']
+['import scrapy']
+['from numpy import np']
+['import test']
+['from pandas import Dataframe']

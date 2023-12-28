@@ -1,165 +1,166 @@
 # -*- coding: utf-8 -*-
-from scrapy.log import INFO
 
-# Scrapy settings for baidubaipin project
+# Define here the models for your spider middleware
 #
-# For simplicity, this file contains only settings considered important or
-# commonly used. You can find more settings consulting the documentation:
-#
-#     https://doc.scrapy.org/en/latest/topics/settings.html
-#     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
+# See documentation in:
+# https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'baidubaipin'
+from scrapy import signals
 
-SPIDER_MODULES = ['baidubaipin.spiders']
-NEWSPIDER_MODULE = 'baidubaipin.spiders'
 
-# Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36'
+class BaidubaipinSpiderMiddleware(object):
+    # Not all methods need to be defined. If a method is not defined,
+    # scrapy acts as if the spider middleware does not modify the
+    # passed objects.
 
-# Obey robots.txt rules
-ROBOTSTXT_OBEY = False
+    @classmethod
+    def from_crawler(cls, crawler):
+        # This method is used by Scrapy to create your spiders.
+        s = cls()
+        crawler.signals.connect(s.spider_opened, signal=signals.spider_opened)
+        return s
 
-# Configure maximum concurrent requests performed by Scrapy (default: 16)
-# CONCURRENT_REQUESTS = 32
+    def process_spider_input(self, response, spider):
+        # Called for each response that goes through the spider
+        # middleware and into the spider.
 
-# Configure a delay for requests for the same website (default: 0)
-# See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
-# See also autothrottle settings and docs
-DOWNLOAD_DELAY = 0.8
-# The download delay setting will honor only one of:
-# CONCURRENT_REQUESTS_PER_DOMAIN = 16
-# CONCURRENT_REQUESTS_PER_IP = 16
+        # Should return None or raise an exception.
+        return None
 
-# Disable cookies (enabled by default)
-# COOKIES_ENABLED = False
+    def process_spider_output(self, response, result, spider):
+        # Called with the results returned from the Spider, after
+        # it has processed the response.
 
-# Disable Telnet Console (enabled by default)
-# TELNETCONSOLE_ENABLED = False
+        # Must return an iterable of Request, dict or Item objects.
+        for i in result:
+            yield i
 
-# Override the default request headers:
-# DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-# }
+    def process_spider_exception(self, response, exception, spider):
+        # Called when a spider or process_spider_input() method
+        # (from other spider middleware) raises an exception.
 
-# Enable or disable spider middlewares
-# See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
-SPIDER_MIDDLEWARES = {
-    'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
-    'baidubaipin.middlewares.BaidubaipinSpiderMiddleware': 543,
-}
+        # Should return either None or an iterable of Response, dict
+        # or Item objects.
+        pass
 
-# Enable or disable downloader middlewares
-# See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-    'scrapy_splash.SplashCookiesMiddleware': 723,
-    'scrapy_splash.SplashMiddleware': 725,
-    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
-}
+    def process_start_requests(self, start_requests, spider):
+        # Called with the start requests of the spider, and works
+        # similarly to the process_spider_output() method, except
+        # that it doesn’t have a response associated.
 
-# Enable or disable extensions
-# See https://doc.scrapy.org/en/latest/topics/extensions.html
-# EXTENSIONS = {
-#    'scrapy.extensions.telnet.TelnetConsole': None,
-# }
+        # Must return only requests (not items).
+        for r in start_requests:
+            yield r
 
-# Configure item pipelines
-# See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-    'baidubaipin.pipelines.BaidubaipinPipeline': 300,
-}
+    def spider_opened(self, spider):
+        spider.logger.info('Spider opened: %s' % spider.name)
 
-# Enable and configure the AutoThrottle extension (disabled by default)
-# See https://doc.scrapy.org/en/latest/topics/autothrottle.html
-AUTOTHROTTLE_ENABLED = True
-# The initial download delay
-AUTOTHROTTLE_START_DELAY = 2
-# The maximum download delay to be set in case of high latencies
-# AUTOTHROTTLE_MAX_DELAY = 60
-# The average number of requests Scrapy should be sending in parallel to
-# each remote server
-# AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
-# Enable showing throttling stats for every response received:
-# AUTOTHROTTLE_DEBUG = False
 
-# Enable and configure HTTP caching (disabled by default)
-# See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
-# HTTPCACHE_ENABLED = True
-# HTTPCACHE_EXPIRATION_SECS = 0
-# HTTPCACHE_DIR = 'httpcache'
-# HTTPCACHE_IGNORE_HTTP_CODES = []
-# HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+class BaidubaipinDownloaderMiddleware(object):
+    # Not all methods need to be defined. If a method is not defined,
+    # scrapy acts as if the downloader middleware does not modify the
+    # passed objects.
 
-LOG_LEVEL = INFO
-# splash的地址，因为百度百聘有些页面是用js加载数据的，不渲染页面是无法爬取到的，所以要用到渲染引擎
-SPLASH_URL = 'http://116.56.140.202:8050'
-DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
-HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
+    @classmethod
+    def from_crawler(cls, crawler):
+        # This method is used by Scrapy to create your spiders.
+        s = cls()
+        crawler.signals.connect(s.spider_opened, signal=signals.spider_opened)
+        return s
 
-# 要使用的cookies，因为百度百聘需要登陆后才能爬取
-cookies_str = r'BAIDUID=03978A7EB227355B8301BFB6EFAB02AF:FG=1; BIDUPSID=03978A7EB227355B8301BFB6EFAB02AF; PSTM=1557281270; delPer=0; BDRCVFR[mkUqnUt8juD]=mk3SLVN4HKm; H_PS_PSSID=1430_21104_28519_28767_28724_28964_28836_28585_28701; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; PSINO=7; Hm_lvt_da3258e243c3132f66f0f3c247b48473=1557838448; Hm_lpvt_da3258e243c3132f66f0f3c247b48473=1557838448; BDUSS=m03U09KRzFQMnlRcTR0fkdTakVzblVMdEYtTm5-QTJkbEFCV2FEM3N0YVhSd0pkSVFBQUFBJCQAAAAAAAAAAAEAAAA32L9Ruf65~mdncwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJe62lyXutpcT'
-REDIS_HOST = "127.0.0.1"
-REDIS_PORT = 6379
+    def process_request(self, request, spider):
+        # Called for each request that goes through the downloader
+        # middleware.
 
-MONGODB_HOST = "127.0.0.1"
-MONGODB_PORT = 27017
+        # Must either:
+        # - return None: continue processing this request
+        # - or return a Response object
+        # - or return a Request object
+        # - or raise IgnoreRequest: process_exception() methods of
+        #   installed downloader middleware will be called
+        return None
 
-MONGODB_USER = "jason#619"
-MONGODB_PASSWORD = "jason#619"
+    def process_response(self, request, response, spider):
+        # Called with the response returned from the downloader.
 
-a = 1
-['import scrapy']
+        # Must either;
+        # - return a Response object
+        # - return a Request object
+        # - or raise IgnoreRequest
+        return response
+
+    def process_exception(self, request, exception, spider):
+        # Called when a download handler or a process_request()
+        # (from other downloader middleware) raises an exception.
+
+        # Must either:
+        # - return None: continue processing this exception
+        # - return a Response object: stops process_exception() chain
+        # - return a Request object: stops process_exception() chain
+        pass
+
+    def spider_opened(self, spider):
+        spider.logger.info('Spider opened: %s' % spider.name)
 ['import scrapy']
 ['from pandas import Dataframe']
-['import test']
-['import scrapy']
 ['from pandas import Dataframe']
 ['from pandas import Dataframe']
 ['import test']
-['import scrapy']
-['import scrapy']
 ['from pandas import Dataframe']
+['import test']
+['import scrapy']
 ['from numpy import np']
-['import test']
 ['from numpy import np']
 ['from pandas import Dataframe']
-['from pandas import Dataframe']
+['import scrapy']
+['import test']
 ['from numpy import np']
 ['from pandas import Dataframe']
 ['import test']
 ['import test']
 ['from numpy import np']
-['from numpy import np']
 ['import scrapy']
 ['from pandas import Dataframe']
-['from numpy import np']
 ['import scrapy']
 ['from pandas import Dataframe']
+['import scrapy']
+['from numpy import np']
 ['import scrapy']
 ['from pandas import Dataframe']
 ['from pandas import Dataframe']
 ['from numpy import np']
 ['import test']
+['import test']
+['import scrapy']
+['import scrapy']
+['import test']
+['import test']
+['import test']
+['import scrapy']
+['import scrapy']
 ['from numpy import np']
-['from numpy import np']
-['from numpy import np']
+['from pandas import Dataframe']
 ['import test']
 ['from pandas import Dataframe']
 ['from pandas import Dataframe']
+['import scrapy']
+['import test']
 ['from pandas import Dataframe']
 ['from pandas import Dataframe']
 ['from numpy import np']
 ['import scrapy']
+['import scrapy']
+['from numpy import np']
+['from numpy import np']
 ['from pandas import Dataframe']
 ['import scrapy']
+['from numpy import np']
 ['import test']
 ['from pandas import Dataframe']
-['from numpy import np']
+['import test']
+['from pandas import Dataframe']
+['import test']
+['from pandas import Dataframe']
+['import scrapy']
 ['import scrapy']
 ['from pandas import Dataframe']
-['from pandas import Dataframe']
-['import test']
-['from numpy import np']
-['from numpy import np']

@@ -164,3 +164,4 @@ class BaidubaipinDownloaderMiddleware(object):
 ['import scrapy']
 ['import scrapy']
 ['from pandas import Dataframe']
+['from pandas import Dataframe']

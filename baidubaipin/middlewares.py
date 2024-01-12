@@ -89,3 +89,4 @@ class BaidubaipinPipeline(object):
 ['import scrapy']
 ['import test']
 ['import scrapy']
+['from numpy import np']

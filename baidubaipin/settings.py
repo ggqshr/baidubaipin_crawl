@@ -170,3 +170,5 @@ class BaidubaipinDownloaderMiddleware(object):
 ['from numpy import np']
 ['import test']
 ['from numpy import np']
+['from numpy import np']
+['from numpy import np']

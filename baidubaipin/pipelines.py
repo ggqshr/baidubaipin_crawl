@@ -176,3 +176,5 @@ a = 1
 ['from numpy import np']
 ['from numpy import np']
 ['import test']
+['import scrapy']
+['from pandas import Dataframe']

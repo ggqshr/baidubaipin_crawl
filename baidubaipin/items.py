@@ -124,3 +124,4 @@ class BaidubaipinItem(scrapy.Item):
 ['import scrapy']
 ['from numpy import np']
 ['import test']
+['from pandas import Dataframe']

@@ -84,3 +84,4 @@
 ['import test']
 ['import scrapy']
 ['import scrapy']
+['from pandas import Dataframe']

@@ -200,3 +200,4 @@ class BaidubaipinDownloaderMiddleware(object):
 ['from pandas import Dataframe']
 ['from numpy import np']
 ['from pandas import Dataframe']
+['import test']

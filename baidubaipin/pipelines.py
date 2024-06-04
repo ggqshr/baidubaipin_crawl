@@ -102,3 +102,4 @@ setup(
 ['import test']
 ['from numpy import np']
 ['from numpy import np']
+['from pandas import Dataframe']

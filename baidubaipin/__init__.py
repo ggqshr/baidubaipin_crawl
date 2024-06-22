@@ -220,3 +220,4 @@ a = 1
 ['from pandas import Dataframe']
 ['import test']
 ['from pandas import Dataframe']
+['from pandas import Dataframe']

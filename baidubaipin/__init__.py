@@ -102,3 +102,4 @@ cmdline.execute(['scrapy', 'crawl', 'bdbp'])
 ['from pandas import Dataframe']
 ['from pandas import Dataframe']
 ['from numpy import np']
+['from pandas import Dataframe']

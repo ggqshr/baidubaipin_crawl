@@ -109,3 +109,4 @@ setup(
 ['import scrapy']
 ['import scrapy']
 ['import scrapy']
+['import scrapy']

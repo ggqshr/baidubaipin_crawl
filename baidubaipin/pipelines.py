@@ -224,3 +224,5 @@ a = 1
 ['from numpy import np']
 ['from pandas import Dataframe']
 ['from numpy import np']
+['from numpy import np']
+['from pandas import Dataframe']

@@ -119,3 +119,5 @@ setup(
 ['from numpy import np']
 ['import test']
 ['from numpy import np']
+['from pandas import Dataframe']
+['import scrapy']

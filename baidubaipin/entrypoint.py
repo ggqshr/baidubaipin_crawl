@@ -230,3 +230,4 @@ a = 1
 ['import scrapy']
 ['import test']
 ['from numpy import np']
+['import test']

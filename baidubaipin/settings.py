@@ -242,3 +242,4 @@ a = 1
 ['import test']
 ['import test']
 ['import scrapy']
+['import scrapy']
